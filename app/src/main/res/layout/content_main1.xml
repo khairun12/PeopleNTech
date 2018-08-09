@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+
+        android:id="@+id/hadder"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/header" />
+
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="85dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/butom_img"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginBottom="7dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/b_image" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/banner"
+
+        >
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+
+            android:layout_marginTop="@dimen/main_button_margin_top"
+            android:paddingBottom="@dimen/main_button_padding_buttom"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+
+            android:paddingTop="5dp"
+
+
+            >
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="54dp"
+                android:padding="3dp">
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="@dimen/main_button_size"
+                    android:layout_height="@dimen/main_button_size"
+
+                    android:layout_marginTop="80dp"
+
+                    android:background="@drawable/bbb_s"
+                    android:drawableTop="@drawable/traning"
+                    android:paddingTop="20dp"
+                    android:text="@string/peoplen_tech_Traning"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/main_button_text_size" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="@dimen/main_button_size"
+                    android:layout_height="@dimen/main_button_size"
+
+                    android:layout_marginLeft="-15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/button1"
+                    android:background="@drawable/bbb_s"
+                    android:drawableTop="@drawable/software"
+                    android:paddingTop="20dp"
+                    android:text="@string/peoplen_tech_software"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/main_button_text_size" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="150dp"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="@dimen/main_button_size"
+                    android:layout_height="@dimen/main_button_size"
+
+                    android:layout_marginTop="75dp"
+                    android:background="@drawable/bbb_s"
+                    android:drawableTop="@drawable/service"
+                    android:paddingTop="14dp"
+                    android:text="Consulting"
+
+                    android:textColor="#fff"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="@dimen/main_button_size"
+                    android:layout_height="@dimen/main_button_size"
+
+                    android:layout_marginLeft="-7dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/button3"
+                    android:background="@drawable/bbb_s"
+                    android:drawableTop="@drawable/about"
+                    android:paddingTop="20dp"
+                    android:text="@string/peoplen_tech_About"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/main_button_text_size" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:background="@drawable/nav_hader_bg"
+    android:layout_width="match_parent"
+    android:layout_height="190dp">
+
+    <ImageView
+        android:src="@drawable/logo_main"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+    <TextView
+        android:id="@+id/tv_email"
+        android:textColor="#0a4f56"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:text="dadasdadadada"
+        android:textStyle="bold"
+        android:fontFamily="casual"
+        android:layout_height="wrap_content" />
+</LinearLayout>

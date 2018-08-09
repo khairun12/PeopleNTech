@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imgLogo"
+
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+<!--
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_btn_bg"
+                    android:drawableTop="@drawable/traning_icon_1"
+                    android:text="@string/peoplen_tech_Traning"
+                    android:textSize="26sp"
+                    android:textColor="#050301"
+                    android:textStyle="bold"
+                    />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_btn_bg"
+                    android:drawableTop="@drawable/software_anim"
+                    android:text="@string/peoplen_tech_software"
+                    android:textSize="26sp"
+                    android:textColor="#ae5609"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_btn_bg"
+                    android:drawableTop="@drawable/services_icon_11"
+                    android:paddingBottom="5dp"
+                    android:text="@string/peoplen_tech_services"
+                    android:textColor="#ae5609"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:paddingBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_btn_bg"
+                    android:drawableTop="@drawable/about_icon"
+                    android:text="@string/peoplen_tech_About"
+                    android:textSize="26sp"
+                    android:textColor="#ae5609"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+-->
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="#ae5609"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                android:background="@drawable/green_btn_bg"
+                android:drawableLeft="@drawable/traning_icon_1"
+                android:text="@string/peoplen_tech_Traning"
+
+                />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="#ae5609"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                android:background="@drawable/green_btn_bg"
+                android:drawableLeft="@drawable/software_anim"
+                android:text="@string/peoplen_tech_software"
+                />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="#ae5609"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                android:drawableLeft="@drawable/services_icon_11"
+                android:background="@drawable/green_btn_bg"
+                android:text="@string/peoplen_tech_services"
+                />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="#ae5609"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                android:background="@drawable/green_btn_bg"
+                android:drawableLeft="@drawable/about_icon"
+                android:text="@string/peoplen_tech_About"
+
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

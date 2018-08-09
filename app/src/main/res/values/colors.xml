@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    <color name="colorPrimary">#3893a7</color>
+    <color name="colorPrimaryDark">#1c6d81</color>
+    <color name="colorAccent">#FF4081</color>
+-->
+
+    <color name="colorPrimary">#F15A22</color>
+    <color name="colorPrimaryDark">#dc440c</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="nav_textColor">#0095c4</color>
+    <color name="nav_bg_color">#ececec</color>
+
+
+
+    <color name="color_white">#FFFFFF</color>
+    <color name="bd_color">#e2e1e1</color>
+
+    <color name="rv_bg">#c4c4c4</color>
+
+
+    <color name="rippelColor">#ffb3b3</color>
+    <color name="colorHighlight">#ffb3b3</color>
+    <color name="windowBackground">#ab4242</color>
+
+
+
+
+</resources>

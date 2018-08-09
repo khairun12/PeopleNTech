@@ -1,0 +1,21 @@
+.contact-widget{
+    margin-bottom: 0px;
+    background: rgba(220, 220, 220, 0.32);
+    padding: 2px 0px 20px 0px;
+}
+.contact-widget h4{
+    background: gainsboro;
+    margin-top: 0px!important;
+    padding: 14px 16px;
+    /* width: 100%; */
+    margin: 0px;
+}
+.contact-widget p{
+    margin: 0px!important;
+    /* padding-top: 7px; */
+    padding-bottom: 0px;
+}
+#apps{
+    margin-top: 15px!important;
+        padding-bottom: 20px;
+}

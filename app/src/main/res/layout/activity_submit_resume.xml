@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff">
+
+        <!--  Header  Starts-->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingBottom="5dip">
+            <!-- Logo Start-->
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+            <!-- Logo Ends -->
+        </LinearLayout>
+        <!--  Header Ends -->
+        <!-- Footer Start -->
+
+        <!-- Footer Ends -->
+
+        <!-- Registration Form -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:orientation="vertical"
+            android:padding="10dip">
+            <!-- Full Name Label -->
+            <TextView
+                android:id="@+id/successfull_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Full Name"
+                android:textColor="#1c7151"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/fullname_et"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+                android:drawableLeft="@drawable/ic_name"
+                android:background="@android:drawable/editbox_background_normal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+
+                android:layout_marginTop="5dip" />
+            <!--  Email Label -->
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/email_et"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+
+                android:layout_marginTop="5dip"
+                android:drawableLeft="@drawable/ic_email"
+                android:background="@android:drawable/editbox_background_normal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                />
+            <!-- Password Label -->
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile Number"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/mobile_num_et"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/ic_mobile"
+                android:background="@android:drawable/editbox_background_normal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Qualification"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/qualification_et"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dip"
+                android:drawableLeft="@drawable/ic_qualification"
+                android:background="@android:drawable/editbox_background_normal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Cover Letter"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/cover_letter_et"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/ic_cover_letter"
+                android:background="@android:drawable/editbox_background_normal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/file_chosen_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Choose File" />
+
+                <TextView
+                    android:id="@+id/file_chosen_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+
+                    android:text="@string/on_file_chosen" />
+
+            </LinearLayout>
+            <!-- Register Button -->
+            <Button
+                android:id="@+id/submit_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Submit Resume" />
+            <!-- Link to Login Screen -->
+
+
+        </LinearLayout>
+        <!-- Registration Form Ends -->
+    </RelativeLayout>
+</ScrollView>

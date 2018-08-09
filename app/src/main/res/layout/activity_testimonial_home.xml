@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/background"
+    android:layout_height="match_parent"
+    tools:context=".UI_Activity.TestimonialHomeActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_centerInParent="true">
+
+    <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:cardCornerRadius="8dp"
+        android:id="@+id/cardUsa">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="USA Video Testimonials"
+          android:background="@drawable/list_bg"
+          android:textColor="#fff"
+          android:textSize="16sp"
+          android:layout_marginBottom="10dp"
+          android:padding="20dp"
+          android:drawableStart="@drawable/devk_video"
+          android:drawablePadding="20dp"
+          android:textAlignment="viewStart"
+          android:gravity="center"
+          android:id="@+id/usa_video"/>
+
+  </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:id="@+id/cardBangladesh">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bangladesh Video Testimonials"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_marginBottom="10dp"
+            android:drawableStart="@drawable/devk_video"
+            android:drawablePadding="20dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="@drawable/list_bg"
+            android:id="@+id/bangladesh_video"/>
+
+    </android.support.v7.widget.CardView>
+
+
+   <!-- <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Written Testimonials"
+            android:textColor="#fff"
+            android:layout_marginBottom="10dp"
+            android:padding="20dp"
+            android:textSize="16sp"
+            android:drawableStart="@drawable/devk_written"
+            android:drawablePadding="20dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:background="@drawable/list_bg"
+            android:id="@+id/written_video"/>
+
+    </android.support.v7.widget.CardView> -->
+
+    </LinearLayout>
+
+</RelativeLayout>

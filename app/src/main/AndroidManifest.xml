@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.skh.peoplentech.peoplentech">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_main"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo1"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI_Activity.ContactUsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.TraningActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.InterviewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.CourseListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI_Activity.TraningActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.CourseDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI_Activity.CourseListActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.TestimonialsListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.WebVideoActivity" />
+        <activity android:name=".UI_Activity.HtnlFileLoderActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.WebViewActivity" />
+        <activity android:name=".UI_Activity.WebActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI_Activity.TraningActivity" />
+        </activity>
+        <activity android:name=".UI_Activity.DummyFragment">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI_Activity.TraningActivity" />
+        </activity>
+        <activity
+            android:name=".UI_Activity.VideoPlayerActivity"
+            android:screenOrientation="landscape" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapView.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".UI_Activity.OfferActivity" />
+        <activity android:name=".UI_Activity.NoticeActivity" />
+        <activity android:name=".UI_Activity.SubmitResumeActivity" />
+        <activity android:name=".UI_Activity.DetailsActivity" />
+        <activity android:name=".UI_Activity.UpcomingBatchActivity" />
+        <activity android:name=".UI_Activity.NewsEventActivity" />
+        <activity android:name=".UI_Activity.CourseApplyActivity" />
+        <activity android:name=".UI_Activity.TestimonialHomeActivity"></activity>
+    </application>
+
+</manifest>

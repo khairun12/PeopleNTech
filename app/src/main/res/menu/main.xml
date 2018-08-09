@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Single menu item
+         Set id, icon and Title for each menu item
+    -->
+    <item android:id="@+id/action_settings"
+        android:icon="@drawable/logo"
+        android:title="List View"
+        />
+    <item android:id="@+id/action_refresh"
+        android:icon="@drawable/logo"
+        android:title="Grid View"
+        />
+
+
+</menu>
