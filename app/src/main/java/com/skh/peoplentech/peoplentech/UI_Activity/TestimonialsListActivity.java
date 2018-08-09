@@ -28,7 +28,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.JsonObject;
 import com.skh.peoplentech.peoplentech.Adapter.TestimonialsAdapter;
 import com.skh.peoplentech.peoplentech.Config.ConfigKey;
 import com.skh.peoplentech.peoplentech.Config.MyAnimation;
@@ -76,45 +78,50 @@ public class TestimonialsListActivity extends AppCompatActivity {
         testimonialsList = new ArrayList<>();
 
         //Calling method to get data
-        getDataTestimonial();
+        //getDataTestimonial(ConfigKey.USA_ENG_TESTIMONIAL_DATA_URL + "?page=1");
+        if (name.equals("bangla")){
+            getDataTestimonial(ConfigKey.BANGLADESH_TESTIMONIAL_DATA_URL);
+        }
     }
 
     //This method will get data from the web api
-    private void getDataTestimonial() {
+    private void getDataTestimonial(final String myURL) {
         //Showing a progress dialog
-        final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, true);
 
         if (name.equals("usa")){
 
             //Check if parent activity is USA
             //Creating a json array request
 
-            StringRequest jsonArrayRequest = new StringRequest(Request.Method.GET, ConfigKey.USA_ENG_TESTIMONIAL_DATA_URL + "?page=1",
-                    new Response.Listener<String>() {
+            JsonObjectRequest jsonArrayRequest = new JsonObjectRequest (Request.Method.GET, myURL, null,
+                    new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String response) {
+                        public void onResponse(JSONObject response) {
                             //Dismissing progress dialog
                             //loading.dismiss();
-                            JSONObject fullData;
+                            //JSONObject fullData;
                             try {
-                                fullData = new JSONObject(response);
-                                JSONObject videoList = fullData.getJSONObject("announcementList");
+                                //fullData = new JSONObject(response);
+                                JSONObject videoList = response.getJSONObject("announcementList");
 
                                 JSONObject paginate = videoList.getJSONObject("paginate");
                                 int lastPage = paginate.getInt("lastPage");
-
+                                if (lastPage < 1) {
+                                    lastPage = 1;
+                                }
                                 for (int i =1; i<=lastPage; i++){
-                                    StringRequest finalRequest = new StringRequest(Request.Method.GET, ConfigKey.USA_ENG_TESTIMONIAL_DATA_URL + "?page=" + i,
-                                            new Response.Listener<String>() {
+                                    JsonObjectRequest finalRequest = new JsonObjectRequest(Request.Method.GET, myURL + "?page=" + i, null,
+                                            new Response.Listener<JSONObject>() {
                                                 @Override
-                                                public void onResponse(String newResponse) {
+                                                public void onResponse(JSONObject newResponse) {
 
                                                     loading.dismiss();
-                                                    JSONObject newFullObj;
+                                                    //JSONObject newFullObj;
 
                                                     try {
-                                                        newFullObj = new JSONObject(newResponse);
-                                                        JSONObject newVidList = newFullObj.getJSONObject("announcementList");
+                                                        //newFullObj = new JSONObject(newResponse);
+                                                        JSONObject newVidList = newResponse.getJSONObject("announcementList");
 
                                                         //Get List of Data
                                                         Iterator<String> iter = newVidList.keys();
@@ -132,6 +139,7 @@ public class TestimonialsListActivity extends AppCompatActivity {
                                                                     testimonialsList.add(myData);
                                                                 } catch (JSONException e) {
                                                                     e.printStackTrace();
+                                                                    loading.dismiss();
                                                                 }
                                                             }
                                                         }
@@ -140,7 +148,10 @@ public class TestimonialsListActivity extends AppCompatActivity {
                                                         Log.i("DEVKH", "TestimonialLists Size:" + testimonialsList.size());
                                                         //Adding adapter to recyclerview
                                                         recyclerView.setAdapter(adapter);
-
+                                                        //check list
+                                                        if (testimonialsList.size() < 1){
+                                                            Toast.makeText(TestimonialsListActivity.this, "No Video Found", Toast.LENGTH_SHORT).show();
+                                                        }
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -169,16 +180,102 @@ public class TestimonialsListActivity extends AppCompatActivity {
                             // parseData1();
                             //parseDataDemo();
                             loading.dismiss();
+                            Toast.makeText(TestimonialsListActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                         }
                     });
-/*
 
-        //Creating request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+            MySingleton.getInstance(TestimonialsListActivity.this).addToRequestQueue(jsonArrayRequest);
 
-        //Adding request to the queue
-        requestQueue.add(jsonArrayRequest);
-*/
+        } else if (name.equals("bangla")){
+            JsonObjectRequest jsonArrayRequest = new JsonObjectRequest (Request.Method.GET, myURL, null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //Dismissing progress dialog
+                            //loading.dismiss();
+                            //JSONObject fullData;
+                            try {
+                                //fullData = new JSONObject(response);
+                                JSONObject videoList = response.getJSONObject("announcementList");
+
+                                JSONObject paginate = videoList.getJSONObject("paginate");
+                                int lastPage = paginate.getInt("lastPage");
+                                if (lastPage < 1) {
+                                    lastPage = 1;
+                                }
+                                for (int i =1; i<=lastPage; i++){
+                                    JsonObjectRequest finalRequest = new JsonObjectRequest(Request.Method.GET, myURL + "?page=" + i, null,
+                                            new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject newResponse) {
+
+                                                    loading.dismiss();
+                                                    //JSONObject newFullObj;
+
+                                                    try {
+                                                        //newFullObj = new JSONObject(newResponse);
+                                                        JSONObject newVidList = newResponse.getJSONObject("announcementList");
+
+                                                        //Get List of Data
+                                                        Iterator<String> iter = newVidList.keys();
+                                                        while (iter.hasNext()) {
+                                                            String key = iter.next();
+                                                            String videoId;
+                                                            if (!key.equals("paginate")) {
+                                                                try {
+                                                                    Testimonials myData = new Testimonials();
+                                                                    JSONObject insideObj = newVidList.getJSONObject(key);
+                                                                    myData.setUser_name(insideObj.getString("heading"));
+                                                                    myData.setVideo_file(insideObj.getString("url_address"));
+                                                                    videoId = insideObj.getString("url_address").replace("https://www.youtube.com/embed/", "").trim();
+                                                                    myData.setVideoId(videoId);
+                                                                    testimonialsList.add(myData);
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                    loading.dismiss();
+                                                                }
+                                                            }
+                                                        }
+                                                        //Finally initializing our adapter
+                                                        adapter = new TestimonialsAdapter(testimonialsList, TestimonialsListActivity.this);
+                                                        Log.i("DEVKH", "TestimonialLists Size:" + testimonialsList.size());
+                                                        //Adding adapter to recyclerview
+                                                        recyclerView.setAdapter(adapter);
+                                                        //check list
+                                                        if (testimonialsList.size() < 1){
+                                                            Toast.makeText(TestimonialsListActivity.this, "No Video Found", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            },
+                                            new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    // parseData1();
+                                                    //parseDataDemo();
+                                                    loading.dismiss();
+                                                }
+                                            });
+                                    MySingleton.getInstance(TestimonialsListActivity.this).addToRequestQueue(finalRequest);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // parseData1();
+                            //parseDataDemo();
+                            loading.dismiss();
+                            Toast.makeText(TestimonialsListActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
             MySingleton.getInstance(TestimonialsListActivity.this).addToRequestQueue(jsonArrayRequest);
         }
@@ -306,38 +403,70 @@ public class TestimonialsListActivity extends AppCompatActivity {
     ArrayAdapter<String> spinnerAdapter;
     Spinner spinner;
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.testimonial_menu, menu);
+        if (name.equals("usa")) {
 
-        MenuItem item = menu.findItem(R.id.spinner);
-        spinner = (Spinner) MenuItemCompat.getActionView(item);
-        String[] NUMBERS = new String[languageList.size()];
-        int i = 0;
+            getMenuInflater().inflate(R.menu.testimonial_menu, menu);
 
-        for (String s : languageList) {
-            NUMBERS[i] = s;
-            Log.i("SKH", NUMBERS[i]);
-            i++;
-        }
-        Log.i("SKH", " s " + languageList.size());
-        //   String [] NUMBERS= languageList.toArray();
+            MenuItem item = menu.findItem(R.id.spinner);
+            spinner = (Spinner) MenuItemCompat.getActionView(item);
+
+            //Add static data to list
+            languageList.add("English");
+            languageList.add("Bengali");
+            languageList.add("Arabic");
+            languageList.add("Russian");
+            languageList.add("Nepali");
+
+            String[] NUMBERS = new String[languageList.size()];
+            int i = 0;
+
+            for (String s : languageList) {
+                NUMBERS[i] = s;
+                Log.i("SKH", NUMBERS[i]);
+                i++;
+            }
+            Log.i("SKH", " s " + languageList.size());
+            //   String [] NUMBERS= languageList.toArray();
 
 
-        spinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, NUMBERS);
+            spinnerAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_dropdown_item_1line, NUMBERS);
 
 // Specify the layout to use when the list of choices appears
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 // attaching data adapter to spinner
-        spinner.setAdapter(spinnerAdapter);
+            spinner.setAdapter(spinnerAdapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.i("SKH", selectedItem);
+                    testimonialsList.clear();
+                    String selectedItem = parent.getItemAtPosition(position).toString();
+
+                    //New
+                    switch (selectedItem) {
+                        case "English":
+                            getDataTestimonial(ConfigKey.USA_ENG_TESTIMONIAL_DATA_URL);
+                            break;
+                        case "Bengali":
+                            getDataTestimonial(ConfigKey.USA_BAN_TESTIMONIAL_DATA_URL);
+                            break;
+                        case "Arabic":
+                            getDataTestimonial(ConfigKey.USA_ARB_TESTIMONIAL_DATA_URL);
+                            break;
+                        case "Russian":
+                            getDataTestimonial(ConfigKey.USA_RUS_TESTIMONIAL_DATA_URL);
+
+                            break;
+                        case "Nepali":
+                            getDataTestimonial(ConfigKey.USA_NEP_TESTIMONIAL_DATA_URL);
+                            break;
+                    }
+
+                /*Log.i("SKH", selectedItem);
                 if (SelectAll.equals(selectedItem)) {
                     selectedItem = "";
                 }
@@ -346,18 +475,22 @@ public class TestimonialsListActivity extends AppCompatActivity {
                 adapter.setFilter(filter(testimonialsList, selectedItem));
                 if (selectedItem.equals("Add new category")) {
                     // do your stuff
+                }*/
+                } // to close the onItemSelected
+
+                public void onNothingSelected(AdapterView<?> parent) {
+
                 }
-            } // to close the onItemSelected
+            });
 
-            public void onNothingSelected(AdapterView<?> parent) {
+            return true;
+        } else {
+            return false;
+        }
 
-            }
-        });
-        return true;
-    }*/
+    }
 
-
-    ArrayList<Testimonials> filter(List<Testimonials> models, String query) {
+    /*ArrayList<Testimonials> filter(List<Testimonials> models, String query) {
         query = query.toLowerCase();
         final ArrayList<Testimonials> filteredModelList = new ArrayList<>();
         for (Testimonials model : models) {
@@ -367,7 +500,7 @@ public class TestimonialsListActivity extends AppCompatActivity {
             }
         }
         return filteredModelList;
-    }
+    }*/
 
 
 }
