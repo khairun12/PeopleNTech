@@ -44,7 +44,7 @@ import java.util.List;
 
 public class CourseListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    //Creating a List of superheroes
+    //Creating a List
     private List<CourseList> courseLists;
 
     //Creating Views
@@ -63,22 +63,12 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        //Initializing our superheroes list
+        //Initializing our list
         courseLists = new ArrayList<>();
 
         //Calling method to get data
          getData();
 
-        /**
-         * Test
-         */
-
-        //courseLists = CourseList.getAllList();
-
-        //adapter = new CourseListAdapter(courseLists, this);
-
-        //Adding adapter to recyclerview
-        //recyclerView.setAdapter(adapter);
     }
 
     //This method will get data from the web api
@@ -96,13 +86,6 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
                     public void onResponse(String response) {
                         //Dismissing progress dialog
                         loading.dismiss();
-
-                        /*String v = response + "";
-                        v = v.replace("[[", "[");
-                        Log.i("SS", "ab1:*" + v.toString() + "*");
-                        v = v.replace("]]", "]");
-                        Log.i("SS", "ab2:*" + v.toString() + "*");*/
-                        //calling method to parse json array
                         JSONArray jsonArray = null;
                         try {
                             //jsonArray = new JSONArray(v);
@@ -120,62 +103,12 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // parseData1();
-                        parseDataDemo();
+
                         loading.dismiss();
                     }
                 });
-/*
-
-        //Creating request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        //Adding request to the queue
-        requestQueue.add(jsonArrayRequest);
-*/
 
         MySingleton.getInstance(CourseListActivity.this).addToRequestQueue(stringRequest);
-    }
-
-    //Unnecessary static data
-    //This method will parse json data
-    /*private void parseData1() {
-        Log.i("SS", "ab:* Demo data" + "*");
-        for (int i = 0; i < 3; i++) {
-            CourseM course = new CourseM();
-
-
-            course.setC_Tittel("Demo Data " + i);
-            //course.setC_img("demo");
-
-            courseLists.add(course);
-        }
-
-        //Finally initializing our adapter
-        adapter = new CourseListAdapter1(courseLists, this);
-
-        //Adding adapter to recyclerview
-        recyclerView.setAdapter(adapter);
-    }*/
-
-    private void parseDataDemo() {
-        String v = getResources().getString(R.string.json_course_list);
-        /*v = v.replace("[[","[");
-        Log.i("SS","ab1:*"+v.toString()+"*");
-        v = v.replace("]]","]");
-        Log.i("SS","ab2:*"+v.toString()+"*");
-        //calling method to parse json array*/
-        JSONArray jsonArray = null;
-        try {
-            jsonArray = new JSONArray(v);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        parseData(jsonArray);
-
-
     }
 
     /**
@@ -200,8 +133,6 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
                     body = String.valueOf(Html.fromHtml(body));
                 }
                 course.setC_name(body);
-                //course.setC_img(ConfigKey.Image_DATA_URL + json.getString(ConfigKey.TAG_Coursec_img));
-                //courseLists.add(course);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -214,6 +145,9 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
         Log.i("DEVKH","courseLists Size:"+courseLists.size());
         //Adding adapter to recyclerview
         recyclerView.setAdapter(adapter);
+        if (courseLists.size() < 1) {
+            Toast.makeText(CourseListActivity.this, "No Course Found. Check Your Internet Connection", Toast.LENGTH_LONG).show();
+        }
     }
 
 

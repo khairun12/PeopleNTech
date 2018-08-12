@@ -3,13 +3,18 @@ package com.skh.peoplentech.peoplentech.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.skh.peoplentech.peoplentech.Config.ConfigKey;
 import com.skh.peoplentech.peoplentech.Modle.LatestOffer;
@@ -39,7 +44,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     @Override
     public NoticeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.latest_offer_list_row, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notice, parent, false);
         NoticeAdapter.ViewHolder viewHolder = new NoticeAdapter.ViewHolder(v);
         return viewHolder;
     }
@@ -49,19 +54,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
         Notice course = courseLists.get(position);
 
+        holder.noticeTitle.setText(course.getNotice_title());
+        holder.noticeContent.setText(course.getNotice_dt());
 
-        holder.tittel_tv.setText(course.getNotice_title());
-        holder.id_tv.setText(course.getId());
-        holder.detailstv.setText(course.getNotice_dt());
-
-        String image_url =course.getImage_file() ;
-       // Log.i("SKH_V", image_url);
-        Picasso.with(context)
-                .load(image_url)
-                .placeholder(R.drawable.ic_image_demo)   // optional
-                .error(R.drawable.ic_image_demo)      // optional
-                //.resize(500,300)                        // optional
-                .into(holder.imageView);
     }
 
     @Override
@@ -72,27 +67,28 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tittel_tv;
-        public TextView id_tv;
-        public TextView detailstv;
-        public ImageView imageView;
+        public TextView noticeTitle;
+        public CardView myCard;
+        public TextView detailsBtn;
+        public TextView noticeContent;
+        public TextView contentText;
+        public String contentString;
 
 
         public ViewHolder(View itemView) {
 
             super(itemView);
 
+            noticeTitle = (TextView) itemView.findViewById(R.id.notice_title);
+            myCard = (CardView) itemView.findViewById(R.id.my_card_notice);
+            detailsBtn = (TextView) itemView.findViewById(R.id.details_notice);
+            noticeContent = (TextView) itemView.findViewById(R.id.notice_content);
 
-            tittel_tv = (TextView) itemView.findViewById(R.id.name_textView);
-            id_tv = (TextView) itemView.findViewById(R.id.idtv);
-            detailstv = (TextView) itemView.findViewById(R.id.detailstv);
-            imageView = (ImageView) itemView.findViewById(R.id.banner_imageView);
 
-
-            itemView.setOnClickListener(new View.OnClickListener() {
+            detailsBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = getAdapterPosition();
+                    /*int pos = getAdapterPosition();
 
                     // check if item still exists
                     if (pos != RecyclerView.NO_POSITION) {
@@ -108,10 +104,48 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                         intent.putExtra("WEB_A_ARRAY", array);
                         context.startActivity(intent);
                         // context.startActivity(intent);
+                    }*/
+                    /*AlertDialog.Builder mBuilder = new AlertDialog.Builder(context.getApplicationContext());
+                    View mView = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.card_popup,null);
+                    //final EditText reset_email = (EditText) mView.findViewById(R.id.resetEmail);
+                    //final Button send_pass = (Button) mView.findViewById(R.id.resetPass);
+
+
+                    mBuilder.setView(mView);
+                    final AlertDialog dialog = mBuilder.create();
+                    dialog.show();
+                    send_pass.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(!reset_email.getText().toString().isEmpty()){
+
+                                Toast.makeText(LoginActivity.this,
+
+                                        "Well Done",
+
+                                        Toast.LENGTH_SHORT).show();
+
+                                dialog.dismiss();
+
+                            }else{
+
+                                Toast.makeText(LoginActivity.this,
+
+                                        "Failed",
+
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });*/
+                    if (noticeContent.getVisibility() == View.GONE){
+                        noticeContent.setVisibility(View.VISIBLE);
+                    } else {
+                        noticeContent.setVisibility(View.GONE);
                     }
+
                 }
             });
-
 
         }
     }

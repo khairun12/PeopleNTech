@@ -15,7 +15,12 @@ public class Notice {
    private String id;
    private String notice_title;
    private String notice_dt;
-   private String image_file;
+
+   public Notice (String title, String details){
+
+   }
+
+   public Notice () {}
 
     public String getId() {
         return id;
@@ -41,11 +46,4 @@ public class Notice {
         this.notice_dt = notice_dt;
     }
 
-    public String getImage_file() {
-        return image_file;
-    }
-
-    public void setImage_file(String image_file) {
-        this.image_file = image_file;
-    }
 }

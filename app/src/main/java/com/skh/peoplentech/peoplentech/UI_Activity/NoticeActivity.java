@@ -7,20 +7,27 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonObject;
 import com.skh.peoplentech.peoplentech.Adapter.LatestOfferAdapter;
 import com.skh.peoplentech.peoplentech.Adapter.NoticeAdapter;
+import com.skh.peoplentech.peoplentech.Adapter.TestimonialsAdapter;
 import com.skh.peoplentech.peoplentech.Config.ConfigKey;
 import com.skh.peoplentech.peoplentech.Config.MySingleton;
 import com.skh.peoplentech.peoplentech.Modle.LatestOffer;
 import com.skh.peoplentech.peoplentech.Modle.Notice;
+import com.skh.peoplentech.peoplentech.Modle.Testimonials;
 import com.skh.peoplentech.peoplentech.R;
 
 import org.json.JSONArray;
@@ -28,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class NoticeActivity extends AppCompatActivity {
@@ -38,7 +46,7 @@ public class NoticeActivity extends AppCompatActivity {
     //Creating Views
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
+    private NoticeAdapter adapter;
     private Activity mActivity;
     private TextView mTv;
 
@@ -82,26 +90,96 @@ public class NoticeActivity extends AppCompatActivity {
         final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, false);
 
         //Creating a json array request
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ConfigKey.json_notic_URL1,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(ConfigKey.json_notic_URL1, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         //Dismissing progress dialog
-                        loading.dismiss();
+                        //loading.dismiss();
 
-                        String v = response + "";
+                        /*String v = response + "";
                         v = v.replace("[[", "[");
                         Log.i("SS", "ab1:*" + v.toString() + "*");
                         v = v.replace("]]", "]");
                         Log.i("SS", "ab2:*" + v.toString() + "*");
                         //calling method to parse json array
-                        JSONArray jsonArray = null;
+                        JSONArray jsonArray = null;*/
                         try {
-                            jsonArray = new JSONArray(v);
+                            JSONObject videoList = response.getJSONObject("announcementList");
+
+                            JSONObject paginate = videoList.getJSONObject("paginate");
+                            int lastPage = paginate.getInt("lastPage");
+                            if (lastPage < 1) {
+                                lastPage = 1;
+                            }
+                            for (int i =1; i<=lastPage; i++){
+                                JsonObjectRequest finalRequest = new JsonObjectRequest(Request.Method.GET, ConfigKey.json_notic_URL1 + "?page=" + i, null,
+                                        new Response.Listener<JSONObject>() {
+                                            @Override
+                                            public void onResponse(JSONObject newResponse) {
+
+                                                try {
+                                                    JSONObject newVidList = newResponse.getJSONObject("announcementList");
+
+                                                    //Get List of Data
+                                                    Iterator<String> iter = newVidList.keys();
+                                                    while (iter.hasNext()) {
+                                                        String key = iter.next();
+                                                        String videoId;
+                                                        if (!key.equals("paginate")) {
+                                                            try {
+                                                                Notice myData = new Notice();
+                                                                JSONObject insideObj = newVidList.getJSONObject(key);
+                                                                myData.setNotice_title(insideObj.getString("heading"));
+                                                                //myData.setNotice_dt(insideObj.getString("content"));
+                                                                //Convert Html
+                                                                String modulebody;
+                                                                modulebody = insideObj.getString("content");
+                                                                //new
+                                                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                                                    modulebody = String.valueOf(Html.fromHtml(modulebody, Html.FROM_HTML_MODE_LEGACY));
+                                                                } else {
+                                                                    modulebody = String.valueOf(Html.fromHtml(modulebody));
+                                                                }
+                                                                myData.setNotice_dt(modulebody);
+                                                                //videoId = insideObj.getString("url_address").replace("https://www.youtube.com/embed/", "").trim();
+                                                                //myData.setVideoId(videoId);
+                                                                latestOffers.add(myData);
+
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                                loading.dismiss();
+                                                            }
+                                                        }
+                                                    }
+                                                    //Finally initializing our adapter
+                                                    adapter = new NoticeAdapter(latestOffers, NoticeActivity.this);
+                                                    //Log.i("DEVKH", "TestimonialLists Size:" + testimonialsList.size());
+                                                    //Adding adapter to recyclerview
+                                                    recyclerView.setAdapter(adapter);
+                                                    loading.dismiss();
+                                                    //check list
+                                                    if (latestOffers.size() < 1){
+                                                        Toast.makeText(NoticeActivity.this, "No Notice Found", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        },
+                                        new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+
+                                                loading.dismiss();
+                                            }
+                                        });
+                                MySingleton.getInstance(NoticeActivity.this).addToRequestQueue(finalRequest);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        parseData(jsonArray);
                     }
                 },
                 new Response.ErrorListener() {
@@ -112,14 +190,6 @@ public class NoticeActivity extends AppCompatActivity {
                         loading.dismiss();
                     }
                 });
-/*
-
-        //Creating request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        //Adding request to the queue
-        requestQueue.add(jsonArrayRequest);
-*/
 
         MySingleton.getInstance(mActivity).addToRequestQueue(jsonArrayRequest);
     }
@@ -157,7 +227,7 @@ public class NoticeActivity extends AppCompatActivity {
                 course.setId(json.getString(ConfigKey.TAG_Notice_ID));
                 course.setNotice_title(json.getString(ConfigKey.TAG_notice_title));
                 course.setNotice_dt(json.getString(ConfigKey.TAG_notice_dt));
-                course.setImage_file(ConfigKey.Notice_Image_DATA_URL + json.getString(ConfigKey.TAG_notice_image_file));
+                //course.setImage_file(ConfigKey.Notice_Image_DATA_URL + json.getString(ConfigKey.TAG_notice_image_file));
 
 
             } catch (JSONException e) {
@@ -193,7 +263,7 @@ public class NoticeActivity extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
     }

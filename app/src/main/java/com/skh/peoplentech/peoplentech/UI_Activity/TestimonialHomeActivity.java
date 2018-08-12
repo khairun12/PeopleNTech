@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.skh.peoplentech.peoplentech.R;
@@ -18,7 +20,7 @@ public class TestimonialHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testimonial_home);
 
-
+        mSetToolber();
 
         usa_video = (CardView) findViewById(R.id.cardUsa);
         ban_video = (CardView) findViewById(R.id.cardBangladesh);
@@ -44,6 +46,26 @@ public class TestimonialHomeActivity extends AppCompatActivity {
         });
     }
 
+    private void mSetToolber() {
+        Toolbar topToolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(topToolBar);
+        getSupportActionBar().setTitle(null);
 
+        getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        // topToolBar.setLogo(R.drawable.logo);
+        // topToolBar.setLogoDescription(getResources().getString(R.string.logo_desc));
 
+        TextView mTitle = (TextView) topToolBar.findViewById(R.id.toolbar_title);
+        ImageButton backArrow = (ImageButton) topToolBar.findViewById(R.id.back_arrow_Img_btn);
+
+        mTitle.setText("Testimonials");
+
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
 }

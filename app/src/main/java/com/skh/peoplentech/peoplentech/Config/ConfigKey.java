@@ -32,7 +32,7 @@ public class ConfigKey {
     public static final String json_json_testimonials_DATA_URL = APPS_URL + "json_testimonials.php";
     public static final String json_tv_interview_DATA_URL = APPS_URL + "json_tv_interview.php";
     public static final String submit_resume_DATA_URL = APPS_URL + "json_submit_resume.php";
-    public static final String json_notic_URL1 = URL1 + "json_notic.php";  //Notices List
+    public static final String json_notic_URL1 = APPS_URL + "getPages/notice";  //Notices List
     public static final String about_piit_DATA_URL = APPS_URL + "about-piit.php";
     public static final String TESTIMONIAL_DATA_URL = APPS_URL + "getPages/video_testimonial/";
 
@@ -43,6 +43,9 @@ public class ConfigKey {
     public static final String USA_RUS_TESTIMONIAL_DATA_URL = TESTIMONIAL_DATA_URL + "russian/3";
     public static final String USA_NEP_TESTIMONIAL_DATA_URL = TESTIMONIAL_DATA_URL + "nepali/4";
 
+    //URL for Bangladesh testimonial
+    public static final String BANGLADESH_TESTIMONIAL_DATA_URL = APPS_URL + "getPages/bangladesh-video-testimonial";
+
     // public static final String ceo_message_piit_DATA_URL        = APPS_URL + "ceo-message-piit.php";
     public static final String company_profile_piit_DATA_URL = APPS_URL + "company-profile-piit.php";
     public static final String leadership_team_piit_DATA_URL = APPS_URL + "leadership-team-piit.php";
@@ -52,10 +55,18 @@ public class ConfigKey {
     public static final String upcoming_class_URL1 = URL1 + "upcoming-class-piit.php";  //Upcoming Class/batches
     public static final String Reg_upcomming_batches_URL1 = URL1 + "upcoming-batch-reg-piit_api.php";  //Upcoming Class/batches
 
+    //devkhs upcoming evet
+    public static final String json_upcomming_event_DATA_URL = APPS_URL + "getPages/upcoming_events";
+    // devkh tv interview
+    public static final String TV_INTERVIEW_DATA_URL = APPS_URL + "getPages/tv_interviews";
 
-    public static final String json_upcomming_event_DATA_URL = APPS_URL + "json_upcomming_event.php";
+
     public static final String json_json_upcomming_batches_DATA_URL = APPS_URL + "batches/2";
-    public static final String json_latest_offer_DATA_URL = APPS_URL + "json_latest_offer.php";
+
+    //latest offer
+    public static final String json_latest_offer_DATA_URL = APPS_URL + "getPages/latest_offer";
+    //offer
+
 ///json_latest_offer_details.php?id=1
 
 

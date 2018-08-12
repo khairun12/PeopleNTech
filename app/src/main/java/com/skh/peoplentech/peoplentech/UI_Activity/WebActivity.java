@@ -186,7 +186,7 @@ public class WebActivity extends AppCompatActivity {
 
         // TextView mTv = (TextView) findViewById(R.id.not_found_Message_tv);
 
-        mTv.setText("No Intrnet Connection");
+        mTv.setText("No Internet Connection");
 
         mTv.setVisibility(View.VISIBLE);
 
