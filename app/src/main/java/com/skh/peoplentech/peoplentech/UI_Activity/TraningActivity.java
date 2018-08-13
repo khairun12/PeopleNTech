@@ -123,7 +123,7 @@ public class TraningActivity extends AppCompatActivity {
         }
         if (id == R.id.action_refresh) {
             callGridView();
-            Toast.makeText(TraningActivity.this, "Refresh App", Toast.LENGTH_LONG).show();
+            //Toast.makeText(TraningActivity.this, "Refresh App", Toast.LENGTH_LONG).show();
         }
 
 

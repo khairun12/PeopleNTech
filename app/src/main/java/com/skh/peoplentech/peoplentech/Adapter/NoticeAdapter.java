@@ -3,16 +3,19 @@ package com.skh.peoplentech.peoplentech.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,21 +44,23 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         this.context = offerActivity;
     }
 
+    @NonNull
     @Override
-    public NoticeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NoticeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notice, parent, false);
-        NoticeAdapter.ViewHolder viewHolder = new NoticeAdapter.ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(NoticeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NoticeAdapter.ViewHolder holder, int position) {
 
         Notice course = courseLists.get(position);
 
         holder.noticeTitle.setText(course.getNotice_title());
         holder.noticeContent.setText(course.getNotice_dt());
+        holder.titleString = (holder.noticeTitle).getText().toString();
+        holder.contentString = (holder.noticeContent).getText().toString();
 
     }
 
@@ -71,11 +76,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         public CardView myCard;
         public TextView detailsBtn;
         public TextView noticeContent;
-        public TextView contentText;
+        public String titleString;
         public String contentString;
 
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
 
             super(itemView);
 
@@ -83,7 +88,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
             myCard = (CardView) itemView.findViewById(R.id.my_card_notice);
             detailsBtn = (TextView) itemView.findViewById(R.id.details_notice);
             noticeContent = (TextView) itemView.findViewById(R.id.notice_content);
-
 
             detailsBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,44 +109,39 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
                         context.startActivity(intent);
                         // context.startActivity(intent);
                     }*/
-                    /*AlertDialog.Builder mBuilder = new AlertDialog.Builder(context.getApplicationContext());
-                    View mView = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.card_popup,null);
-                    //final EditText reset_email = (EditText) mView.findViewById(R.id.resetEmail);
-                    //final Button send_pass = (Button) mView.findViewById(R.id.resetPass);
 
+                    /**
+                     * New Version Popup Menu
+                     */
+
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
+                    View mView = LayoutInflater.from(context).inflate(R.layout.card_popup,null);
+                    TextView titlePopup = (TextView) mView.findViewById(R.id.title_popup);
+                    TextView detailsPopup = (TextView) mView.findViewById(R.id.detail_popup);
+
+                    titlePopup.setText(titleString);
+                    detailsPopup.setText(contentString);
 
                     mBuilder.setView(mView);
                     final AlertDialog dialog = mBuilder.create();
                     dialog.show();
-                    send_pass.setOnClickListener(new View.OnClickListener() {
+
+                    titlePopup.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            if(!reset_email.getText().toString().isEmpty()){
-
-                                Toast.makeText(LoginActivity.this,
-
-                                        "Well Done",
-
-                                        Toast.LENGTH_SHORT).show();
-
-                                dialog.dismiss();
-
-                            }else{
-
-                                Toast.makeText(LoginActivity.this,
-
-                                        "Failed",
-
-                                        Toast.LENGTH_SHORT).show();
-
-                            }
+                        public void onClick(View vw) {
+                            dialog.dismiss();
                         }
-                    });*/
-                    if (noticeContent.getVisibility() == View.GONE){
+                    });
+
+                    /**
+                     * Visibility code used in previous version
+                     */
+
+                    /*if (noticeContent.getVisibility() == View.GONE){
                         noticeContent.setVisibility(View.VISIBLE);
                     } else {
                         noticeContent.setVisibility(View.GONE);
-                    }
+                    }*/
 
                 }
             });
