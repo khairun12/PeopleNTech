@@ -15,6 +15,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -32,6 +33,7 @@ import com.skh.peoplentech.peoplentech.Config.MySingleton;
 import com.skh.peoplentech.peoplentech.Modle.CourseList;
 import com.skh.peoplentech.peoplentech.Modle.Modules;
 import com.skh.peoplentech.peoplentech.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +55,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ModulesAdapter adapter;
     private List<Modules> moduleLists, upcomingLists;
+    private ImageView teacherImg;
 
     TextView course_title,course_r_price,course_d_price, course_t_hour,course_s_date, course_l_date,
     course_techer_content,course_t_name, course_t_deg,course_dev_content;
@@ -92,6 +95,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         course_techer_content = (TextView) findViewById(R.id.dev_teacher_content);
         course_t_name = (TextView) findViewById(R.id.dev_teacher_name);
         course_t_deg = (TextView) findViewById(R.id.dev_teacher_deg);
+        teacherImg = (ImageView) findViewById(R.id.imgInstructor);
 
         //Layout
         linearLayout = (LinearLayout) findViewById(R.id.otherLayout);
@@ -127,7 +131,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
     }
@@ -219,6 +223,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                                 JSONObject course = jObj.getJSONObject("course");
                                 modules = course.getJSONObject("modules");
 
+                                String imageURL;
                                 //set text here
                                 //course details
                                 course_title.setText(jsonObject.getString("heading"));
@@ -232,6 +237,14 @@ public class CourseDetailsActivity extends AppCompatActivity {
                                 course_techer_content.setText(teacher.getString("content"));
                                 course_t_name.setText(teacher.getString("heading"));
                                 course_t_deg.setText(teacher.getString("designation"));
+                                imageURL = ConfigKey.IMAGE_URL_TEACHER + teacher.getString("file");
+
+                                Picasso.with(CourseDetailsActivity.this)
+                                        .load(imageURL)
+                                        .placeholder(R.drawable.testperson)   // optional
+                                        .error(R.drawable.testperson)      // optional
+                                        //.resize(500,300)                        // optional
+                                        .into(teacherImg);
                                 //Toast.makeText(CourseDetailsActivity.this,"Des:"+jsonObject.getString("designation"),Toast.LENGTH_LONG).show();
 
                                 /**
@@ -244,7 +257,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                                 while (iter.hasNext()){
                                     String key = iter.next();
                                     try {
-                                        Modules thisModules=new Modules();
+                                        Modules thisModules = new Modules();
                                         JSONObject insideObj = modules.getJSONObject(key);
                                         thisModules.setModuleName(insideObj.getString("heading"));
                                         //Convert Html
