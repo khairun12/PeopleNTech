@@ -72,7 +72,7 @@ public class NewsEventActivity extends AppCompatActivity {
             mTv.setVisibility(View.GONE);
         } else {
 
-            mTv.setText("No Intrnet Connection");
+            mTv.setText("No Internet Connection");
             mTv.setVisibility(View.VISIBLE);
 
         }
@@ -86,7 +86,7 @@ public class NewsEventActivity extends AppCompatActivity {
     //This method will get data from the web api
     private void getData() {
         //Showing a progress dialog
-        final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, true);
 
         //Creating a json array request
         JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(ConfigKey.json_notic_URL1, null,

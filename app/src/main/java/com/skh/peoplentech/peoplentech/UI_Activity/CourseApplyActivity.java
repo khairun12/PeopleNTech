@@ -196,16 +196,13 @@ public class CourseApplyActivity extends AppCompatActivity implements AdapterVie
         if (usrName.isEmpty() || usrEmail.isEmpty() || usrNumber.isEmpty() || usrGender.isEmpty()){
             loading.dismiss();
             Toast.makeText(CourseApplyActivity.this, "Please fill out all the details", Toast.LENGTH_SHORT).show();
-        } else if (usrName.contains(".*\\d+.*")){
-            loading.dismiss();
-            Toast.makeText(CourseApplyActivity.this, "Invalid Name", Toast.LENGTH_SHORT).show();
         } else {
 
             //We need to get a CSRF token for sending data
             //This block of code will get us the CSRF token
             // Create a new HttpClient and Post Header
 
-            Thread thread = new Thread(new Runnable() {
+            /*Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try  {
@@ -236,16 +233,41 @@ public class CourseApplyActivity extends AppCompatActivity implements AdapterVie
                 }
             });
             //Log.i("DEVKH", "CSRF Number:" + token);
-            thread.start();
+            thread.start();*/
 
             //Creating a json object request
-            StringRequest postRequest = new StringRequest(Request.Method.POST, ConfigKey.APPLY_FOR_COURSE,
+            StringRequest postRequest = new StringRequest(Request.Method.POST, ConfigKey.BATCH_REGISTRATION,
                     new Response.Listener<String>() {
 
                         @Override
                         public void onResponse(String response) {
                             loading.dismiss();
-                            Toast.makeText(CourseApplyActivity.this, "Your data has been stored", Toast.LENGTH_LONG).show();
+                            try {
+                                JSONObject myResponse = new JSONObject(response);
+                                String myCode = myResponse.getString("code");
+                                switch (myCode) {
+                                    case "100":
+                                        Toast.makeText(CourseApplyActivity.this, "Your name is not valid", Toast.LENGTH_LONG).show();
+                                        break;
+                                    case "101":
+                                        Toast.makeText(CourseApplyActivity.this, "Your Mobile Number is not valid", Toast.LENGTH_LONG).show();
+                                        break;
+                                    case "102":
+                                        Toast.makeText(CourseApplyActivity.this, "Gender is not valid", Toast.LENGTH_LONG).show();
+                                        break;
+                                    case "200":
+                                        Toast.makeText(CourseApplyActivity.this, "Your data has been successfully stored", Toast.LENGTH_LONG).show();
+                                        break;
+                                    case "103":
+                                        Toast.makeText(CourseApplyActivity.this, "You are already registered as a student", Toast.LENGTH_LONG).show();
+                                        break;
+                                    default:
+                                        Toast.makeText(CourseApplyActivity.this, "Please fill up all required data", Toast.LENGTH_LONG).show();
+                                        break;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener() {
@@ -267,7 +289,6 @@ public class CourseApplyActivity extends AppCompatActivity implements AdapterVie
                     params.put("email", usrEmail);
                     params.put("number", usrNumber);
                     params.put("gender", usrGender);
-                    params.put("_token", token);
                     params.put("batch_id", smsBatchId);
                     Log.i("DEVKH", "Next Token :" + token);
                     Log.i("DEVKH", "Next Batch Id:" + smsBatchId);

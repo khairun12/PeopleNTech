@@ -65,7 +65,10 @@ public class ConfigKey {
 
     //latest offer
     public static final String json_latest_offer_DATA_URL = APPS_URL + "getPages/latest_offer";
-    //offer
+
+
+    //Apply for course
+    public static final String APPLY_FOR_COURSE = "https://www.piit.us/en/batch_reg/post";
 
 ///json_latest_offer_details.php?id=1
 
@@ -124,6 +127,13 @@ public class ConfigKey {
     public static final String TAG_CONTENT = "content";
     public static final String TAG_FILE = "file";
     public static final String TAG_LAST_DATE = "last_date_of_admission";
+
+    //Image URL
+    public static final String IMAGE_URL_TEACHER = "https://piit.us/storage/";
+
+    //batch registration
+
+    public static final String BATCH_REGISTRATION = "https://master.piit.us/api/batch-registration";
 
     // json_ News Event
     public static final String TAG_NE_ne_id = "ne_id";

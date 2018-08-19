@@ -151,17 +151,25 @@ public class UpcomingBatchCourseListAdapter extends RecyclerView.Adapter<Upcomin
             reg_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //int pos = getAdapterPosition();
-                    //UpcomingBatch clickedDataItem = courseLists.get(pos);
-                    //   Toast.makeText(v.getContext(), "You clicked ID: " + clickedDataItem.getC_id(), Toast.LENGTH_SHORT).show();
+                    int pos = getAdapterPosition();
+
+                    // check if item still exists
+                    if (pos != RecyclerView.NO_POSITION) {
+                        UpcomingBatch clickedDataItem = courseLists.get(pos);
+                        //   Toast.makeText(v.getContext(), "You clicked ID: " + clickedDataItem.getC_id(), Toast.LENGTH_SHORT).show();
 
 
-                    //String url = ConfigKey.Reg_upcomming_batches_URL1+"?id=" + clickedDataItem.getUpc_id();
+                        //String url = ConfigKey.Reg_upcomming_batches_URL1+"?id=" + clickedDataItem.getUpc_id();
 
-                    //String[] web_a_array = {clickedDataItem.getCourse_name(), url};
-                    Intent intent = new Intent(context, CourseApplyActivity.class);
-                    //intent.putExtra("WEB_A_ARRAY",web_a_array);
-                    context.startActivity(intent);
+                        //String[] web_a_array = {clickedDataItem.getCourse_name(), url};
+                        Intent intent = new Intent(context, CourseApplyActivity.class);
+                        String name = clickedDataItem.getCourse_name().toLowerCase();
+                        String title = name.replaceAll("\\s","-").replaceAll("\\(","").replaceAll("\\)", "");
+                        String courseId = clickedDataItem.getUpc_id();
+                        intent.putExtra("name", title);
+                        intent.putExtra("myid", courseId);
+                        context.startActivity(intent);
+                    }
 
                 }
             });

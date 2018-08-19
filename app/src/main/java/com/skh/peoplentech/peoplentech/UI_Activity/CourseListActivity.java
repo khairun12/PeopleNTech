@@ -74,7 +74,7 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
     //This method will get data from the web api
     private void getData() {
         //Showing a progress dialog
-        final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, true);
 
         //Creating a json array request
         /**
