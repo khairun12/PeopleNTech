@@ -39,7 +39,7 @@
         android:layout_marginBottom="60dp"
         android:fontFamily=""
         android:gravity="center_horizontal"
-        android:text="Traning,Job Placement,Outsourcing"
+        android:text="Traning, Job Placement, Outsourcing"
         android:textColor="#e64d27"
         android:textSize="20sp"
         android:textStyle="bold" />

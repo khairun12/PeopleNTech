@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -37,7 +38,7 @@ import com.skh.peoplentech.peoplentech.Config.MyAnimation;
 import com.skh.peoplentech.peoplentech.UI_Activity.*;
 
 public class MainActivity extends AppCompatActivity {
-    private Activity mActivity;
+    //private Activity mActivity;
     private Button b1, b2, b3, b4, b5, b6;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        mActivity = this;
+        //mActivity = this;
         initialize();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        getDesplayHightWidth();
+        //getDesplayHightWidth();
 
     }
 
@@ -130,14 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.button2:
                     WEB_A_ARRAY[0] = "PeopleNTech Software";
                     WEB_A_ARRAY[1] = ConfigKey.URL_SOFTWARE;
-                    HTML_FILE_LODER.goWebpage(mActivity, WEB_A_ARRAY);
+                    HTML_FILE_LODER.goWebpage(MainActivity.this, WEB_A_ARRAY);
                    // Toast.makeText(mActivity, "Service pnt Consulting", Toast.LENGTH_LONG).show();
 
                     break;
                 case R.id.button3:
                     WEB_A_ARRAY[0] = "PeopleNTech Consulting";
                     WEB_A_ARRAY[1] = ConfigKey.URL_consulting;
-                    HTML_FILE_LODER.goWebpage(mActivity, WEB_A_ARRAY);
+                    HTML_FILE_LODER.goWebpage(MainActivity.this, WEB_A_ARRAY);
 
                   //  Toast.makeText(mActivity, "PnT Software", Toast.LENGTH_LONG).show();
 
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
                     WEB_A_ARRAY[0] = "About Us";
                     WEB_A_ARRAY[1] = ConfigKey.HTML_ABOUT_URL;
-                    HTML_FILE_LODER.openHtmlFile(mActivity, WEB_A_ARRAY);
+                    HTML_FILE_LODER.openHtmlFile(MainActivity.this, WEB_A_ARRAY);
 
                     break;
 
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 int id = menuItem.getItemId();
 
@@ -190,17 +191,17 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tv_interview:
                         drawerLayout.closeDrawers();
 
-                        intent = new Intent(mActivity, InterviewActivity.class);
+                        intent = new Intent(MainActivity.this, InterviewActivity.class);
                         intent.putExtra("KEY_StringName", "TV Interview");
 
-                        mActivity.startActivity(intent);
+                        startActivity(intent);
                         break;
                     case R.id.testimonial:
                         drawerLayout.closeDrawers();
 
-                        intent = new Intent(mActivity, TestimonialHomeActivity.class);
+                        intent = new Intent(MainActivity.this, TestimonialHomeActivity.class);
                         //intent.putExtra("KEY_StringName", "Testimonial");
-                        mActivity.startActivity(intent);
+                        startActivity(intent);
 
                         break;
 
@@ -210,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
                         WEB_A_ARRAY[0] = "CEO Message";
                         WEB_A_ARRAY[1] = ConfigKey.HTML_CEO_MESSAGE_URL;
-                        HTML_FILE_LODER.openHtmlFile(mActivity, WEB_A_ARRAY);
+                        HTML_FILE_LODER.openHtmlFile(MainActivity.this, WEB_A_ARRAY);
 
 
                         break;
@@ -236,17 +237,17 @@ public class MainActivity extends AppCompatActivity {
                         WEB_A_ARRAY[0] ="Contact Us";
                         WEB_A_ARRAY[1] = ConfigKey.HTML_COUNTACT_US_URL;
 
-                        startActivity(new Intent(mActivity,ContactUsActivity.class).putExtra("WEB_A_ARRAY", WEB_A_ARRAY));
+                        startActivity(new Intent(MainActivity.this,ContactUsActivity.class).putExtra("WEB_A_ARRAY", WEB_A_ARRAY));
 
 
                         break;
                     case R.id.fb_page:
 
-                        if (ConfigKey.isNetworkAvailable(mActivity)) {
+                        if (ConfigKey.isNetworkAvailable(MainActivity.this)) {
 
                             WEB_A_ARRAY[0] ="Facebook";
                             WEB_A_ARRAY[1] = "https://www.facebook.com/peoplentech/";
-                            HTML_FILE_LODER.goWebpage(mActivity, WEB_A_ARRAY);
+                            HTML_FILE_LODER.goWebpage(MainActivity.this, WEB_A_ARRAY);
                         } else {
                             Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
@@ -261,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
 
                             WEB_A_ARRAY[0] = "About Us";
                             WEB_A_ARRAY[1] = ConfigKey.HTML_ABOUT_URL;
-                            HTML_FILE_LODER.openHtmlFile(mActivity, WEB_A_ARRAY);
+                            HTML_FILE_LODER.openHtmlFile(MainActivity.this, WEB_A_ARRAY);
 
                         break;
 
@@ -298,11 +299,11 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
 
-    public void exit( ){
+    /*public void exit( ){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         // Setting Alert Dialog Title
         alertDialogBuilder.setTitle("You want to exit !");
-        LayoutInflater inflater = (LayoutInflater) mActivity
+        LayoutInflater inflater = (LayoutInflater) MainActivity.this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.text_titel, null);
         alertDialogBuilder.setCustomTitle(view);
@@ -323,13 +324,13 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-    }
+    }*/
 
 
-    private void exit1(){
+    /*private void exit1(){
 
 
-        final Dialog dialog = new Dialog(mActivity);
+        final Dialog dialog = new Dialog(MainActivity.this);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_exit_dialog);
@@ -358,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
-    }
+    }*/
 
 
 }

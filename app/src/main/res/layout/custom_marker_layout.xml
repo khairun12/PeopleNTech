@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
 
     android:background="#ddaacc">
-    <com.skh.peoplentech.peoplentech.com.skh.SkhImageView
+    <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/logo1"/>
