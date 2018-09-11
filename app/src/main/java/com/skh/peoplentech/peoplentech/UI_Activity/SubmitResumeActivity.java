@@ -55,6 +55,7 @@ public class SubmitResumeActivity extends AppCompatActivity {
     private Button bTChosen_file, bTSubmit;
     private boolean fileSelected = false;
     private boolean uploadedOne = false;
+    Uri uri;
 
     /**********  File Path *************/
     //String uploadFilePath = "/mnt/sdcard/";
@@ -106,6 +107,11 @@ public class SubmitResumeActivity extends AppCompatActivity {
             bTChosen_file.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+                    /**
+                     * Previous Code
+                     */
                 /*File myFile = new File("");
                 try {
                    // FileOpen.openFile(getApplicationContext(), myFile);
@@ -119,11 +125,21 @@ public class SubmitResumeActivity extends AppCompatActivity {
                // new FileOpen(activity).onCreateDialog(1);
                // tvChosen_file.setText(uploadFilePath+""+uploadFileName);*/
 
+                    /**
+                     * working code in previous version
+                     */
+
+                    /*
+
 
                     s.showDialog();
 
                 }
             });
+            */
+                    /**
+                     * End of working code in previous version
+                     */
 
 /*
 
@@ -131,6 +147,21 @@ public class SubmitResumeActivity extends AppCompatActivity {
             logMessage("Error:" + e);
         }
 */
+
+
+                    /**
+                     * Updated code
+                     */
+
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Pdf"), 1);
+
+                }
+            });
+
+
 
 
         bTSubmit.setOnClickListener(new View.OnClickListener() {
@@ -417,6 +448,21 @@ public class SubmitResumeActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    //Added pdf
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            uri = data.getData();
+
+            tvChosen_file.setText(getFilesDir().getName());
+            uploadFilePathName = uri.getPath();
+            fileSelected = true;
+        }
     }
 
 

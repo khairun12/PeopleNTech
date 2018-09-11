@@ -171,17 +171,17 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
                                 body = jsonObject.getString("content");
                                 //new
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                     body = String.valueOf(Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY));
                                 } else {
                                     body = String.valueOf(Html.fromHtml(body));
-                                }
+                                }*/
                                 //teacher = jObj.getJSONObject("teacher");
 
                                 //set text here
                                 //course details
                                 course_title.setText(jsonObject.getString("heading"));
-                                course_dev_content.setText(body);
+                                course_dev_content.setText(Html.fromHtml(body));
 
                                 //Recyclerview here
                                 Iterator<String> iter = modules.keys();
@@ -195,11 +195,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
                                         String modulebody;
                                         modulebody = insideObj.getString("content");
                                         //new
-                                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                             modulebody = String.valueOf(Html.fromHtml(modulebody, Html.FROM_HTML_MODE_LEGACY));
                                         } else {
                                             modulebody = String.valueOf(Html.fromHtml(modulebody));
-                                        }
+                                        }*/
                                         myModules.setModuleContent(modulebody);
                                         //insert it into the list
                                         moduleLists.add(myModules);
@@ -264,11 +264,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
                                         String modulebody;
                                         modulebody = insideObj.getString("content");
                                         //new
-                                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                        /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                             modulebody = String.valueOf(Html.fromHtml(modulebody, Html.FROM_HTML_MODE_LEGACY));
                                         } else {
                                             modulebody = String.valueOf(Html.fromHtml(modulebody));
-                                        }
+                                        }*/
                                         thisModules.setModuleContent(modulebody);
                                         //insert it into the list
                                         upcomingLists.add(thisModules);

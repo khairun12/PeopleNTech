@@ -3,6 +3,7 @@ package com.skh.peoplentech.peoplentech.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,7 +123,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Vi
                         //String[] array = {clickedDataItem.getC_name(),  "https://master.piit.us/api/en/batch/" + clickedDataItem.getC_id()};
                         String name = clickedDataItem.getC_name();
                         String url = clickedDataItem.getC_id();
-                        intent.putExtra("name", name);
+                        intent.putExtra("name", Html.fromHtml(name));
                         intent.putExtra("url", url);
                         intent.putExtra("from", "course/");
                         context.startActivity(intent);

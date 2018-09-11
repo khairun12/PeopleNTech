@@ -127,11 +127,11 @@ public class CourseListActivity extends AppCompatActivity implements SearchView.
                 course.setC_id(json.getString(ConfigKey.TAG_c_id));
                 body = json.getString(ConfigKey.TAG_c_name);
                 //new
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                     body = String.valueOf(Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY));
                 } else {
                     body = String.valueOf(Html.fromHtml(body));
-                }
+                }*/
                 course.setC_name(body);
 
             } catch (JSONException e) {

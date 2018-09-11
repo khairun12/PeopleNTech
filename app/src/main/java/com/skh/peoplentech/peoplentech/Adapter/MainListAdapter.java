@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.skh.peoplentech.peoplentech.Config.ConfigKey;
 import com.skh.peoplentech.peoplentech.Modle.ListItem;
 import com.skh.peoplentech.peoplentech.R;
+import com.skh.peoplentech.peoplentech.UI_Activity.CVActivity;
 import com.skh.peoplentech.peoplentech.UI_Activity.CourseListActivity;
 import com.skh.peoplentech.peoplentech.UI_Activity.DummyFragment;
 import com.skh.peoplentech.peoplentech.UI_Activity.NewsEventActivity;
@@ -114,7 +115,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.Recycl
 
                 case 5:
 
-                    context.startActivity(new Intent(context, SubmitResumeActivity.class));
+                    context.startActivity(new Intent(context, CVActivity.class));
                     break;
             }
         }

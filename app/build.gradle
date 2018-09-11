@@ -41,4 +41,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.4'
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    //upload
+    implementation 'net.gotev:uploadservice:3.4.2'
 }

@@ -138,7 +138,7 @@ public class TraningActivity extends AppCompatActivity {
         allItems.add(new ListItem("Special offer", R.drawable.offer));
         allItems.add(new ListItem("Notice", R.drawable.notice));
         allItems.add(new ListItem("Upcoming Event", R.drawable.event));
-        allItems.add(new ListItem("Submit Resume", R.drawable.resume));
+        allItems.add(new ListItem("Free Consultation", R.drawable.resume));
 
         return allItems;
     }

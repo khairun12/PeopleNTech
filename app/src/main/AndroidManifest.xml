@@ -99,9 +99,8 @@
         <activity android:name=".UI_Activity.UpcomingBatchActivity" />
         <activity android:name=".UI_Activity.NewsEventActivity" />
         <activity android:name=".UI_Activity.CourseApplyActivity" />
-        <activity android:name=".UI_Activity.TestimonialHomeActivity">
-
-        </activity>
+        <activity android:name=".UI_Activity.TestimonialHomeActivity"></activity>
+        <activity android:name=".UI_Activity.CVActivity"></activity>
     </application>
 
 </manifest>
