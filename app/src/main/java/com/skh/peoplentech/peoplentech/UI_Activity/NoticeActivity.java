@@ -47,7 +47,7 @@ public class NoticeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private NoticeAdapter adapter;
-    private Activity mActivity;
+    //private Activity mActivity;
     private TextView mTv;
 
     @Override
@@ -55,7 +55,6 @@ public class NoticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
         mSetToolber();
-        mActivity = this;
         //Initializing Views
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -191,7 +190,7 @@ public class NoticeActivity extends AppCompatActivity {
                     }
                 });
 
-        MySingleton.getInstance(mActivity).addToRequestQueue(jsonArrayRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 
 

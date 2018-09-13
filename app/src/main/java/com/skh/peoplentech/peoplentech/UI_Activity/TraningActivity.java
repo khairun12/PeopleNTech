@@ -135,7 +135,7 @@ public class TraningActivity extends AppCompatActivity {
         List<ListItem> allItems = new ArrayList<>();
         allItems.add(new ListItem("All Courses", R.drawable.course));
         allItems.add(new ListItem("Upcoming New Batches", R.drawable.batch));
-        allItems.add(new ListItem("Special offer", R.drawable.offer));
+        allItems.add(new ListItem("Special Offer", R.drawable.offer));
         allItems.add(new ListItem("Notice", R.drawable.notice));
         allItems.add(new ListItem("Upcoming Event", R.drawable.event));
         allItems.add(new ListItem("Free Consultation", R.drawable.resume));

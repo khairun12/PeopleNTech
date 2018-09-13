@@ -1,6 +1,7 @@
 package com.skh.peoplentech.peoplentech.UI_Activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +11,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,17 +24,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.skh.peoplentech.peoplentech.Config.ConfigKey;
 import com.skh.peoplentech.peoplentech.Config.MyFilePath;
+import com.skh.peoplentech.peoplentech.Config.MySingleton;
 import com.skh.peoplentech.peoplentech.R;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+
+import retrofit.http.POST;
 
 public class CVActivity extends AppCompatActivity {
 
@@ -64,7 +81,7 @@ public class CVActivity extends AppCompatActivity {
         spinner =(Spinner) findViewById(R.id.typeSpinner);
 
         //Check permission
-        AllowRunTimePermission();
+        //AllowRunTimePermission();
 
         //Add data to spinner
         // Spinner Drop down elements
@@ -79,7 +96,7 @@ public class CVActivity extends AppCompatActivity {
          * work on later
          *
          */
-        choose.setOnClickListener(new View.OnClickListener() {
+        /*choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -87,12 +104,17 @@ public class CVActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Pdf"), PDF_REQ_CODE);
             }
-        });
+        });*/
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PdfUploadFunction();
+                if (ConfigKey.isNetworkAvailable(CVActivity.this)) {
+                    consultationFunction();
+                } else {
+                    Toast.makeText(CVActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         /**
@@ -113,6 +135,8 @@ public class CVActivity extends AppCompatActivity {
                     spinnerValue = "1";
                 } else if (item.equals("Bangladesh")){
                     spinnerValue = "2";
+                } else {
+                    spinnerValue = null;
                 }
             }
 
@@ -125,7 +149,7 @@ public class CVActivity extends AppCompatActivity {
     }
 
     //Upload File
-    public void PdfUploadFunction() {
+    public void consultationFunction() {
 
 
         applicantName = name.getText().toString().trim();
@@ -133,14 +157,76 @@ public class CVActivity extends AppCompatActivity {
         applicantNumber = mobile.getText().toString().trim();
         applicationQuery = addQuery.getText().toString().trim();
 
-        if (checkFileUpload) {
+        if (applicantNumber.isEmpty() || applicantEmail.isEmpty() || applicantName.isEmpty() || applicationQuery.isEmpty()
+                || TextUtils.isEmpty(spinnerValue)){
+            Toast.makeText(this, "Please fill up all required fields", Toast.LENGTH_LONG).show();
+        } else if(!Patterns.EMAIL_ADDRESS.matcher(applicantEmail).matches()){
+            Toast.makeText(this, "Enter a valid email address", Toast.LENGTH_LONG).show();
+        } else {
+
+            //Showing a progress dialog
+            final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Please wait...", false, true);
+
+            //Creating a json array request
+            StringRequest jsonRequest = new StringRequest(Request.Method.POST, ConfigKey.FREE_CONSULTATION,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            loading.dismiss();
+                            try{
+                                JSONObject myResponse = new JSONObject(response);
+                                int code = myResponse.getInt("code");
+
+                                if (code == 200){
+                                    Toast.makeText(CVActivity.this, "Your query has been successfully received", Toast.LENGTH_SHORT).show();
+                                } else if (code == 405){
+                                    Toast.makeText(CVActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(CVActivity.this, "Please enter valid email and phone number", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            loading.dismiss();
+                            Toast.makeText(CVActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+                        }
+                    })
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("name", applicantName);
+                    params.put("email", applicantEmail);
+                    params.put("phone", applicantNumber);
+                    params.put("branch", spinnerValue);
+                    params.put("querys", applicationQuery);
+                    //Log.i("DEVKH", "Next Token :" + token);
+                    return params;
+                }
+            };
+            MySingleton.getInstance(CVActivity.this).addToRequestQueue(jsonRequest);
+        }
+
+        /*if (checkFileUpload) {
 
             upload.setClickable(true);
             upload.setFocusable(true);
             PdfPathHolder = MyFilePath.getPath(CVActivity.this, uri);
-        }
+        }*/
 
-        if (PdfPathHolder == null) {
+        /**
+         * function for uploading PDF
+         */
+
+        /*if (PdfPathHolder == null) {
 
             Toast.makeText(this, "Please Select a File & try again.", Toast.LENGTH_LONG).show();
 
@@ -174,10 +260,15 @@ public class CVActivity extends AppCompatActivity {
                 //startActivity(intent);
             }
 
-        }
+        }*/
     }
 
-    @Override
+    /**
+     * Required for PDF upload
+     *
+     */
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -209,7 +300,7 @@ public class CVActivity extends AppCompatActivity {
             }
             choose.setText(displayName);
         }
-    }
+    }*/
 
     //Setup tool bar
 
@@ -227,7 +318,7 @@ public class CVActivity extends AppCompatActivity {
         TextView mTitle = (TextView) topToolBar.findViewById(R.id.toolbar_title);
         ImageButton backArrow = (ImageButton) topToolBar.findViewById(R.id.back_arrow_Img_btn);
 
-        mTitle.setText("Submit Resume");
+        mTitle.setText("Free Consultation");
 
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override

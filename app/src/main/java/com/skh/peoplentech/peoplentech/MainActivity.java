@@ -28,6 +28,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
         b3.setOnClickListener(click);
         b4.setOnClickListener(click);
         //b1.getHeight();
+
+        //set width height
+        /*int width = getResources().getDisplayMetrics().widthPixels/3;
+        int hei=getResources().getDisplayMetrics().heightPixels/5;
+        b1.setLayoutParams(new LinearLayout.LayoutParams(width,hei));
+        b2.setLayoutParams(new LinearLayout.LayoutParams(width,hei));
+        b3.setLayoutParams(new LinearLayout.LayoutParams(width,hei));
+        b4.setLayoutParams(new LinearLayout.LayoutParams(width,hei));*/
+
 
     }
 

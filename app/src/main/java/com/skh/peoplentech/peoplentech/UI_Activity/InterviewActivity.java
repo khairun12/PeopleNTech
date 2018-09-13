@@ -45,7 +45,7 @@ import java.util.List;
 
 public class InterviewActivity extends AppCompatActivity {
 
-    private Activity mActivity;
+    //private Activity mActivity;
     //Creating a List
     private ArrayList<Testimonials> testimonialsList;
 
@@ -63,7 +63,6 @@ public class InterviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_list);
         // setContentView(R.layout.activity_testimonials_list);
         // new MyAnimation(this).overridePendingTransitionEnter();
-        mActivity = this;
         //Intent intent = getIntent();
         //name = intent.getStringExtra("KEY_StringName");
         mSetToolber();

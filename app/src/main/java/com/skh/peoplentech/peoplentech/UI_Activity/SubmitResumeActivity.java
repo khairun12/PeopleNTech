@@ -66,7 +66,7 @@ public class SubmitResumeActivity extends AppCompatActivity {
 
     private static final String File_TAG_NAME = "uploaded_file";
     private static final int PICK_FILE_REQUEST = 1;
-    Activity mActivity;
+    //Activity mActivity;
 
     String successMessage = "Thank You.Your Registration is Successful.\nWe Will Contact with you shortly.";
 
@@ -74,7 +74,6 @@ public class SubmitResumeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_resume);
-        mActivity = this;
         mSetToolber();
 
         inisilize();
@@ -93,7 +92,7 @@ public class SubmitResumeActivity extends AppCompatActivity {
                         uploadFileName = file.getName();
                         uploadFilePathName = file.getAbsolutePath();
                     } else {
-                        Toast.makeText(mActivity, "Invalid File", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SubmitResumeActivity.this, "Invalid File", Toast.LENGTH_LONG).show();
                         tvChosen_file.setText("Invalid File");
                         tvChosen_file.setTextColor(Color.RED);
                     }

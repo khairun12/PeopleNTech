@@ -26,6 +26,7 @@ public class ConfigKey {
     public static final String Resume_upload_DATA_Location = URL_ROOT + "admin/upload/resume";
 
     public static final String Resume__URL = APPS_URL + "upload_resume.php";
+    public static final String FREE_CONSULTATION = URL_ROOT + "api/freeConsultation";
 
     public static final String json_course_list_DATA_URL = APPS_URL + "all_courses";
     public static final String json_course_details_DATA_URL = APPS_URL + "json_course_details.php";
